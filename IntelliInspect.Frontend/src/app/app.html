@@ -1,0 +1,45 @@
+<header class="app-header">
+  <h1 class="tech-title">INTELLINSPECT - PREDICTIVE ANALYSIS</h1>
+  <img src="images.png" alt="ABB Logo" class="logo">
+</header>
+
+<div class="step-card">
+  <div class="step-indicator">
+    <div class="step" [class.active]="currentStep === 1">
+      <div class="step-number">1</div>
+      <div class="step-label">Upload Dataset</div>
+      <div class="step-highlight"></div>
+    </div>
+    <div class="step" [class.active]="currentStep === 2">
+      <div class="step-number">2</div>
+      <div class="step-label">Date Range</div>
+      <div class="step-highlight"></div>
+    </div>
+    <div class="step" [class.active]="currentStep === 3">
+      <div class="step-number">3</div>
+      <div class="step-label">Model Training</div>
+      <div class="step-highlight"></div>
+    </div>
+    <div class="step" [class.active]="currentStep === 4">
+      <div class="step-number">4</div>
+      <div class="step-label">Simulation</div>
+      <div class="step-highlight"></div>
+    </div>
+  </div>
+</div>
+
+<div class="step-content">
+  <app-upload-dataset *ngIf="currentStep === 1" (next)="goToNextStep()"></app-upload-dataset>
+  <app-date-range *ngIf="currentStep === 2" (next)="goToNextStep()"></app-date-range>
+  <app-train-model *ngIf="currentStep === 3" (next)="goToNextStep()"></app-train-model>
+  <app-simulation *ngIf="currentStep === 4"></app-simulation>
+</div>
+
+<footer class="app-footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      <div>ENGINEERED</div>
+      <div>TO OUTRUN</div>
+    </div>
+  </div>
+</footer>

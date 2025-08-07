@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  frontend-angular:
+    build:
+      context: ./IntelliInspect.Frontend
+      dockerfile: Dockerfile
+    container_name: frontend-angular
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend-dotnet
+    networks:
+      - intelli-net
+
+  backend-dotnet:
+    build:
+      context: ./IntelliInspect.Backend
+      dockerfile: Dockerfile
+    container_name: backend-dotnet
+    ports:
+      - "5230:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MLService__TrainUrl=http://ml-service-python:8000/train
+      - MLService__PredictUrl=http://ml-service-python:8000/predict
+    volumes:
+      - ./IntelliInspect.Backend/Storage:/app/Storage
+    depends_on:
+      - ml-service-python
+    networks:
+      - intelli-net
+
+  ml-service-python:
+    build:
+      context: ./ML
+      dockerfile: Dockerfile
+    container_name: ml-service-python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./IntelliInspect.Backend/Storage:/app/Storage
+    networks:
+      - intelli-net
+
+networks:
+  intelli-net:
+    driver: bridge

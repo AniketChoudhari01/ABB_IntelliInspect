@@ -1,0 +1,245 @@
+.simulation-container {
+    padding: 20px;
+    text-align:center;
+}
+
+.status-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.stats-panel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+ .simulation-container {
+     padding: 20px;
+     max-width: 1200px;
+     margin: 0 auto;
+ }
+
+.control-panel {
+  display: flex;
+  justify-content: center;  
+  align-items: center;       
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+ .btn-primary,
+ .btn-secondary,
+ .btn-tertiary,
+ .btn-disabled {
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     font-weight: bold;
+     transition: all 0.3s ease;
+ }
+
+ .btn-primary {
+     background-color: #007bff;
+     color: white;
+ }
+
+ .btn-primary:hover {
+     background-color: #0056b3;
+ }
+
+ .btn-secondary {
+     background-color: #dc3545;
+     color: white;
+ }
+
+ .btn-secondary:hover {
+     background-color: #c82333;
+ }
+
+ .btn-tertiary {
+     background-color: #6c757d;
+     color: white;
+ }
+
+ .btn-disabled {
+     background-color: #e9ecef;
+     color: #6c757d;
+     cursor: not-allowed;
+ }
+
+ .status-section {
+     margin: 20px 0;
+ }
+
+ .status-active {
+     color: #007bff;
+     font-weight: bold;
+     animation: pulse 1.5s infinite;
+ }
+
+ .status-success {
+     color: #28a745;
+     font-weight: bold;
+ }
+
+ .status-error {
+     color: #dc3545;
+     font-weight: bold;
+     background-color: #f8d7da;
+     padding: 10px;
+     border-radius: 5px;
+     border: 1px solid #f5c6cb;
+ }
+
+ @keyframes pulse {
+
+     0%,
+     100% {
+         opacity: 1;
+     }
+
+     50% {
+         opacity: 0.6;
+     }
+ }
+
+ .stats-panel {
+     background-color: #f8f9fa;
+     padding: 20px;
+     border-radius: 8px;
+     margin-bottom: 20px;
+     border-left: 4px solid #007bff;
+ }
+
+ .stats-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+     gap: 15px;
+     margin-top: 15px;
+ }
+
+ .stat-item {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 10px;
+     background: white;
+     border-radius: 5px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+
+ .stat-label {
+     font-weight: bold;
+     color: #495057;
+ }
+
+ .stat-value {
+     font-size: 1.1em;
+     font-weight: bold;
+ }
+
+ .stat-value.pass {
+     color: #28a745;
+ }
+
+ .stat-value.fail {
+     color: #dc3545;
+ }
+
+ .results-section {
+     margin-top: 30px;
+ }
+
+ .table-container {
+     overflow-x: auto;
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ .prediction-table {
+     width: 100%;
+     border-collapse: collapse;
+     background: white;
+ }
+
+ .prediction-table th {
+     background-color: #343a40;
+     color: white;
+     padding: 12px 8px;
+     text-align: left;
+     font-weight: bold;
+     position: sticky;
+     top: 0;
+     z-index: 10;
+ }
+
+ .prediction-table td {
+     padding: 10px 8px;
+     border-bottom: 1px solid #dee2e6;
+ }
+
+ .prediction-table tr:hover {
+     background-color: #f8f9fa;
+ }
+
+ .prediction.pass {
+     color: #28a745;
+     font-weight: bold;
+ }
+
+ .prediction.fail {
+     color: #dc3545;
+     font-weight: bold;
+ }
+
+ .status.correct {
+     color: #28a745;
+     font-size: 0.9em;
+ }
+
+ .status.incorrect {
+     color: #dc3545;
+     font-size: 0.9em;
+ }
+
+ .status.unknown {
+     color: #6c757d;
+     font-size: 0.9em;
+ }
+
+ .row-correct {
+     background-color: #d4edda !important;
+ }
+
+ .row-incorrect {
+     background-color: #f8d7da !important;
+ }
+
+ .empty-state {
+     text-align: center;
+     color: #6c757d;
+     font-style: italic;
+     margin: 40px 0;
+     padding: 40px;
+     background-color: #f8f9fa;
+     border-radius: 8px;
+ }

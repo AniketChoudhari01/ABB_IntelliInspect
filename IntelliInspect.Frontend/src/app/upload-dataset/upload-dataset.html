@@ -1,0 +1,46 @@
+<div class="Upload-Parent">
+  <div class="upload-card" 
+       [class.success]="metadata"
+       (drop)="onDropFile($event)" 
+       (dragover)="allowDrop($event)">
+       
+    <div *ngIf="!metadata" class="upload-prompt">
+      <p><b>CLICK TO SELECT A CSV FILE OR DRAG AND DROP</b></p>
+      <input type="file" accept=".csv" (change)="onFileSelected($event)" />
+      <div *ngIf="isLoading" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Processing file...</p>
+      </div>
+    </div>
+
+    <div *ngIf="metadata" class="summary-container success-background">
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h4>FILE NAME</h4>
+          <p>{{ metadata.fileName || selectedFile?.name }}</p>
+        </div>
+        <div class="summary-card">
+          <h4>TOTAL RECORDS</h4>
+          <p>{{ metadata.rowCount }}</p>
+        </div>
+        <div class="summary-card">
+          <h4>TOTAL COLUMNS</h4>
+          <p>{{ metadata.columnCount }}</p>
+        </div>
+        <div class="summary-card">
+          <h4>PASS RATE</h4>
+          <p>{{ passRate }}</p>
+        </div>
+        <div class="summary-card">
+          <h4>DATE RANGE</h4>
+          <p>{{ dateRange }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons" *ngIf="metadata">
+    <button class="change-file-btn" (click)="resetFileInput()">Change File</button>
+    <button class="next-btn" (click)="onNextClick()">Next ➜</button>
+  </div>
+</div>

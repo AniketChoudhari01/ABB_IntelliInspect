@@ -1,0 +1,69 @@
+<div class="step-container">
+  <h2>
+    Model Training & Evaluation
+  </h2>
+
+  <!-- Training Button -->
+  <button class="train-btn" (click)="trainModel()" [disabled]="isTraining">
+    {{ isTraining ? 'Training...' : 'Train Model' }}
+  </button>
+
+
+
+  <!-- Metrics and Charts -->
+  <div *ngIf="isTrained" class="trained-section">
+    <div class="status-badge">✔️ Model Trained</div>
+
+    <!-- Metrics Grid -->
+    <h3 class="section-heading">Metrics</h3>
+    <div class="metrics-card-container">
+      <div class="metrics-grid-two-rows">
+        <div class="metric-card">
+          Accuracy<br />
+          <span>{{ modelPerformance?.accuracy | number: '1.2-2' }}%</span>
+        </div>
+        <div class="metric-card">
+          Precision<br />
+          <span>{{ modelPerformance?.precision | number: '1.2-2' }}%</span>
+        </div>
+        <div class="metric-card">
+          Recall<br />
+          <span>{{ modelPerformance?.recall | number: '1.2-2' }}%</span>
+        </div>
+        <div class="metric-card">
+          F1 Score<br />
+          <span>{{ modelPerformance?.f1_score | number: '1.2-2' }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Line -->
+    <p class="info-line">
+      Model trained on 6 months of data · Validated on 2 months · Ready for 2-month simulation
+    </p>
+
+    <!-- Line Chart -->
+    <div class="chart-card">
+      <h3>Training Accuracy & Loss</h3>
+      <div class="chart-container">
+        <canvas baseChart [data]="lineChartData" [type]="'line'"></canvas>
+      </div>
+    </div>
+
+    <!-- Donut Chart -->
+    <div class="chart-card-donut">
+      <h3>Confusion Matrix Summary</h3>
+      <div class="chart-container-donut">
+        <canvas baseChart [data]="donutChartData" [options]="donutChartOptions" [type]="donutChartType"></canvas>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <!-- Navigation -->
+    <div class="next-btn-container">
+      <button class="next-btn" [disabled]="!isTrained" (click)="nextStep()">Next</button>
+      <!-- <button class="next-btn" (click)="nextStep()">Next</button> -->
+    </div>
+
+  </div>
+</div>

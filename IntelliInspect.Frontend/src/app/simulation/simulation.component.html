@@ -1,0 +1,105 @@
+<div class="simulation-container">
+  <h2>Real-Time Simulation</h2>
+
+  <!-- Status Messages -->
+  <div class="status-section">
+    <p *ngIf="simulationActive" class="status-active">Simulation running...</p>
+    <p *ngIf="simulationCompleted" class="status-success">Simulation completed successfully</p>
+    <p *ngIf="simulationError" class="status-error">Error: {{ errorMessage }}</p>
+  </div>
+
+  <!-- Control Panel -->
+  <div class="control-panel">
+    <button (click)="startSimulation()" [disabled]="simulationActive"
+      [class]="simulationActive ? 'btn-disabled' : 'btn-primary'">
+      {{ simulationActive ? 'Simulating...' : (simulationCompleted ? 'Restart Simulation' : 'Start Simulation') }}
+    </button>
+
+    <button (click)="stopSimulation()" [disabled]="!simulationActive" class="btn-secondary">
+      Stop
+    </button>
+
+    <button (click)="clearResults()" [disabled]="simulationActive || predictionData.length === 0"
+      class="btn-tertiary">
+      Clear Results
+    </button>
+  </div>
+
+  <!-- All content shown only if simulation has started -->
+  <ng-container *ngIf="simulationActive || simulationCompleted || simulationError">
+    <div>
+      <h3>Real-Time Quality Predictions</h3>
+      <div class="chart-container">
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [type]="'line'">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="stats-panel" *ngIf="stats.total > 0">
+      <h3>Real-time Statistics</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Predictions:</span>
+          <span class="stat-value">{{ stats.total }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Pass Count:</span>
+          <span class="stat-value pass">{{ stats.pass }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fail Count:</span>
+          <span class="stat-value fail">{{ stats.fail }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Avg Confidence:</span>
+          <span class="stat-value">{{ stats.avgConfidence.toFixed(1) }}%</span>
+        </div>
+        <div class="stat-item" *ngIf="stats.accuracy > 0">
+          <span class="stat-label">Accuracy:</span>
+          <span class="stat-value">{{ stats.accuracy.toFixed(1) }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-section" *ngIf="predictionData.length > 0">
+      <h3>Prediction Results (Latest {{ predictionData.length }} entries)</h3>
+      <div class="table-container">
+        <table class="prediction-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Sample ID</th>
+              <th>Prediction</th>
+              <th>Confidence</th>
+              <th>Actual</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of predictionData; trackBy: trackByFn" [class]="getRowClass(row)">
+              <td>{{ formatTime(row.timestamp) }}</td>
+              <td>{{ row.id }}</td>
+              <td>
+                <span [class]="'prediction ' + (row.prediction === 'Pass' ? 'pass' : 'fail')">
+                  {{ row.prediction }}
+                </span>
+              </td>
+              <td>{{ row.confidence }}%</td>
+              <td>{{ row.actual || 'N/A' }}</td>
+              <td>
+                <span *ngIf="row.actual && row.actual !== 'Unknown'"
+                  [class]="'status ' + (row.prediction === row.actual ? 'correct' : 'incorrect')">
+                  {{ row.prediction === row.actual ? 'Correct' : 'Incorrect' }}
+                </span>
+                <span *ngIf="!row.actual || row.actual === 'Unknown'" class="status unknown">
+                  Unknown
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</div>

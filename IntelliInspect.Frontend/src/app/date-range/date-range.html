@@ -1,0 +1,132 @@
+<div class="date-range-container">
+  <!-- Header Section -->
+  <div class="header">
+    <h2>Select Date Range</h2>
+    <p class="step-info"></p>
+  </div>
+
+
+  <div class="validation-message" [class.success]="isValidationSuccess"
+    [class.error]="!isValidationSuccess && validationMessage">
+    <span *ngIf="validationMessage">
+      {{ validationMessage }}
+    </span>
+  </div>
+
+
+  <div class="period-container">
+
+    <div class="period-section">
+      <div class="period-card">
+        <h3>Training Period</h3>
+        <div class="date-inputs">
+          <label>Start Date:</label>
+          <input type="date" [(ngModel)]="trainingPeriod.start">
+
+          <label>End Date:</label>
+          <input type="date" [(ngModel)]="trainingPeriod.end">
+        </div>
+      </div>
+
+      <div class="summary-card" *ngIf="showValidationSummary">
+        <h4>Training Range</h4>
+        <p class="days-count">{{ validationSummary.training.days }} days</p>
+        <p class="date-range">
+          {{ validationSummary.training.start | date:'yyyy-MM-dd' }}
+          to
+          {{ validationSummary.training.end | date:'yyyy-MM-dd' }}
+        </p>
+      </div>
+    </div>
+
+
+    <div class="period-section">
+      <div class="period-card">
+        <h3>Testing Period</h3>
+        <div class="date-inputs">
+          <label>Start Date:</label>
+          <input type="date" [(ngModel)]="testingPeriod.start">
+
+          <label>End Date:</label>
+          <input type="date" [(ngModel)]="testingPeriod.end">
+        </div>
+      </div>
+
+      <div class="summary-card" *ngIf="showValidationSummary">
+        <h4>Testing Range</h4>
+        <p class="days-count">{{ validationSummary.testing.days }} days</p>
+        <p class="date-range">
+          {{ validationSummary.testing.start | date:'yyyy-MM-dd' }}
+          to
+          {{ validationSummary.testing.end | date:'yyyy-MM-dd' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="period-section">
+      <div class="period-card">
+        <h3>Simulation Period</h3>
+        <div class="date-inputs">
+          <label>Start Date:</label>
+          <input type="date" [(ngModel)]="simulationPeriod.start">
+
+          <label>End Date:</label>
+          <input type="date" [(ngModel)]="simulationPeriod.end">
+        </div>
+      </div>
+
+      <div class="summary-card" *ngIf="showValidationSummary">
+        <h4>Simulation Range</h4>
+        <p class="days-count">{{ validationSummary.simulation.days }} days</p>
+        <p class="date-range">
+          {{ validationSummary.simulation.start | date:'yyyy-MM-dd' }}
+          to
+          {{ validationSummary.simulation.end | date:'yyyy-MM-dd' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="validate-button-container" *ngIf="!isValidated || hasValidationError">
+    <button class="validate-btn" [disabled]="!trainingPeriod.start || !trainingPeriod.end || 
+                    !testingPeriod.start || !testingPeriod.end || 
+                    !simulationPeriod.start || !simulationPeriod.end" (click)="validateRanges()">
+      Validate Ranges
+    </button>
+  </div>
+
+  <!-- Monthly Volume Cards -->
+  <div class="summary-row" *ngIf="chartData && showValidationSummary">
+    <div class="summary-card" *ngIf="chartData.trainMonthly">
+      <h4>Training Monthly Volume</h4>
+      <div *ngFor="let month of getMonths(chartData)">
+        <strong>{{ month }}:</strong> {{ chartData.trainMonthly[month] || 0 }}
+      </div>
+    </div>
+
+    <div class="summary-card" *ngIf="chartData.testMonthly">
+      <h4>Testing Monthly Volume</h4>
+      <div *ngFor="let month of getMonths(chartData)">
+        <strong>{{ month }}:</strong> {{ chartData.testMonthly[month] || 0 }}
+      </div>
+    </div>
+
+    <div class="summary-card" *ngIf="chartData.simMonthly">
+      <h4>Simulation Monthly Volume</h4>
+      <div *ngFor="let month of getMonths(chartData)">
+        <strong>{{ month }}:</strong> {{ chartData.simMonthly[month] || 0 }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="chart-container" *ngIf="showValidationSummary">
+    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType">
+    </canvas>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="next-btn" [disabled]="!isValidationSuccess" (click)="onNextClick()">Next</button>
+  </div>
+</div>

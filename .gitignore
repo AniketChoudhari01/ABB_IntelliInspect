@@ -1,0 +1,77 @@
+# Ignore .NET build artifacts
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.csproj.user
+*.pdb
+*.mdb
+*.log
+*.vs/
+.vscode/
+
+# Ignore Angular/node project files
+**/node_modules/
+**/dist/
+**/tmp/
+**/.angular/
+.env
+.env.*.local
+
+# Ignore backend Storage directory
+IntelliInspect.Backend/Storage/
+
+# Ignore common IDE files
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ignore build outputs
+*.db
+*.sqlite
+*.bak
+
+# Solution user-specific files
+*.sln.docstates
+*.sln.ide
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+log/
+logs/
+
+# Ignore OS-specific hidden files
+ehthumbs.db
+Icon?
+
+ABB Project.sln
+node_modules/
+IntelliInspect.Backend/Storage
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Environment files
+.env
+*.env
+
+# Logs and junk
+*.log
+.DS_Store
+*.bak
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# Pytest cache
+.pytest_cache/
